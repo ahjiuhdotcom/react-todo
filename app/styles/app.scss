@@ -1,0 +1,24 @@
+// Import the partials
+// We leave off the '_' and file extension here
+
+@import "base/variables";
+
+// Foundation
+// load the foundation thru css
+// instead of "require('style!css!foundation-sites/dist/foundation.min.css')"
+// in app.jsx file
+// Advantage is that we can make changes to global foundation class setting in one place
+// We can also change foundation setting using normal css override but it will be messier
+
+// 1st. load in the 'foundation-setting' file (scss setting file)
+@import "base/foundation-settings";
+// 2nd load the foundation
+// We need load the first file because custom changes was made there,
+// instead of in node-modules
+// so if the 1st file was loaded, foundation will always refer to the setting in that file
+@import "foundation";
+// 3rd tell foundation to include everything
+@include foundation-everything;
+
+
+// Component
