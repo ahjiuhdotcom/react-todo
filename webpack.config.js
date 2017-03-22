@@ -36,6 +36,14 @@ module.exports = {
   },
   resolve: {
     root: __dirname,
+    // with 'modulesDirectories', we do not need to add
+    // the path of newly created custom component to 'alias'
+    // webpack will automatic find it in 'modulesDirectories'
+    // it first look for 'node_modules', then './app/components'
+    modulesDirectories: [
+      'node_modules',
+      './app/components'
+    ],
     // specify where to find those file
     // so that not explicitly specify the path in 'require' statement
     alias: {

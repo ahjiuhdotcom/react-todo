@@ -3,6 +3,7 @@ var ReactDOM = require('react-dom');
 // var Route = require('react-router').Route
 var { Route, Router, IndexRoute, hashHistory } = require('react-router');
 
+var TodoApp = require('TodoApp');
 
 // Load css version of foundation
 // 'css!' is css loader teach program how to load the file
@@ -18,6 +19,6 @@ require('style!css!sass!applicationStyles')
 // What to render by react-dom
 // document.getElementById('app') is the location to render the component
 ReactDOM.render(
-  <p>Boilerplate 3 Project</p>
+  <TodoApp/>,
   document.getElementById('app') // Where to render
 );
