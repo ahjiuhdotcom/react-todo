@@ -13,7 +13,7 @@ var TodoList = React.createClass({
         // In this case it spread out the todo object into individual props
         // so that all attributes in todo is passed down tp child
         return (
-          <Todo key={todo.id} {...todo}/>
+          <Todo key={todo.id} {...todo} onToggle={this.props.onToggle}/>
         );
       });
     };
