@@ -39,10 +39,11 @@ module.exports = {
     // with 'modulesDirectories', we do not need to add
     // the path of newly created custom component to 'alias'
     // webpack will automatic find it in 'modulesDirectories'
-    // it first look for 'node_modules', then './app/components'
+    // it first look for 'node_modules', then './app/components' etc
     modulesDirectories: [
       'node_modules',
-      './app/components'
+      './app/components',
+      './app/api'
     ],
     // specify where to find those file
     // so that not explicitly specify the path in 'require' statement
