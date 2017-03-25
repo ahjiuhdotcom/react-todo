@@ -38,5 +38,42 @@ module.exports = {
     // }
     // Using ternary operator
     return $.isArray(todos) ? todos : [];
+  },
+  filterTodos: function(todos, showCompleted, searchText) {
+    var filteredTodos = todos;
+
+    // filter by showCompleted
+    // '.filter' is built in array method
+    filteredTodos = filteredTodos.filter((todo) => {
+      // only show item that 'completed' property is false
+      // or the 'showCompleted' is true (checked)
+      return !todo.completed || showCompleted;
+    });
+
+    // filter by searchText
+    filteredTodos = filteredTodos.filter((todo) => {
+      var text = todo.text.toLowerCase();
+
+      // if '.indexOf' return -1 means the txt is not found
+      return searchText.length == 0 || text.indexOf(searchText) > -1;
+    });
+
+    // Sort todos with non-completed first
+    // '.sort' is built in array method, pass in 2 argument, e.g. a, b
+    // if return '-1', 'a' should be before 'b'
+    // if return '1', 'a' should be after 'b'
+    // if return '0', no change (a & b are equal)
+    filteredTodos.sort((a, b) => {
+      if (!a.completed && b.completed) {
+        return -1;
+      } else if (a.completed && !b.completed) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+
+    return filteredTodos;
   }
+
 };
