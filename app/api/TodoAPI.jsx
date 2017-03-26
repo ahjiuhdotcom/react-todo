@@ -1,7 +1,8 @@
 var $ = require('jquery');
 
 // we can run localStorage.setItem(), localStorage.getItem()
-// in the console of the browser to check if required
+// in the console of the browser
+// to remove the file in localStorage, run localStorage.removeItem('todos');
 
 module.exports = {
   setTodos: function(todos) {
@@ -40,6 +41,7 @@ module.exports = {
     return $.isArray(todos) ? todos : [];
   },
   filterTodos: function(todos, showCompleted, searchText) {
+
     var filteredTodos = todos;
 
     // filter by showCompleted
@@ -54,7 +56,7 @@ module.exports = {
     filteredTodos = filteredTodos.filter((todo) => {
       var text = todo.text.toLowerCase();
 
-      // if '.indexOf' return -1 means the txt is not found
+      // if '.indexOf' return -1 means the text is not found
       return searchText.length == 0 || text.indexOf(searchText) > -1;
     });
 
@@ -63,6 +65,8 @@ module.exports = {
     // if return '-1', 'a' should be before 'b'
     // if return '1', 'a' should be after 'b'
     // if return '0', no change (a & b are equal)
+    // There is problem with the sorting due 'filteredTodos' is never update to state (setState) at any point in this project
+    // So, every sorting always start according to the arrangement in the saved state, not last sorted arrangement
     filteredTodos.sort((a, b) => {
       if (!a.completed && b.completed) {
         return -1;
