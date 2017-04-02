@@ -48,7 +48,8 @@ module.exports = {
     // specify where to find those file
     // so that not explicitly specify the path in 'require' statement
     alias: {
-      applicationStyles: 'app/styles/app.scss'
+      applicationStyles: 'app/styles/app.scss',
+      actions: 'app/actions/actions.jsx'
     },
     extensions: ['', '.js', '.jsx'] //list of file extension that able to process
   },
