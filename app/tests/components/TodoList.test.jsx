@@ -26,7 +26,7 @@ describe('TodoList', () => {
 
     var todoList = TestUtils.renderIntoDocument(<TodoList todos={todos}/>);
 
-    // scryRenderedComponentsWithTyoe method let us check how many given component
+    // scryRenderedComponentsWithType method let us check how many given component
     // are get rendered under seperate component
     // In this case check how many Todo component are rendered under TodoList component
     var todoComponents = TestUtils.scryRenderedComponentsWithType(todoList, Todo);
