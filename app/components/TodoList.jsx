@@ -1,13 +1,15 @@
 var React = require('react');
-// var Todo = require('Todo');
-import Todo from 'Todo';
 // To connect to the store thru provider
 var {connect} = require('react-redux');
+
+// var Todo = require('Todo');
+import Todo from 'Todo';
+var TodoAPI = require('TodoAPI');
 
 export var TodoList = React.createClass({
   render: function() {
 
-    var {todos} = this.props;
+    var {todos, showCompleted, searchText} = this.props;
 
     var renderTodos = () => {
       if (todos.length === 0) {
@@ -16,7 +18,8 @@ export var TodoList = React.createClass({
         );
       }
 
-      return todos.map((todo) => {
+      // return todos.map((todo) => {
+      return TodoAPI.filterTodos(todos, showCompleted, searchText).map((todo) => {
         // {...todo} is using spread operator
         // it spread out all the property in the object
         // In this case it spread out the todo object into individual props
@@ -54,8 +57,6 @@ export var TodoList = React.createClass({
 // refer to Todo.jsx why export default is used
 export default connect(
   (state) => {
-    return {
-      todos: state.todos
-    };
+    return state;
   }
 )(TodoList);
