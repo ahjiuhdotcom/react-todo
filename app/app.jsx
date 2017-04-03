@@ -1,5 +1,11 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+
+// 'Provider' let us provide the store to the children component
+// e.g. TodoList, even though rendered 2 component deep,
+// can still access attribute on the store & use the to rendered
+var {Provider} = require('react-redux');
+
 // var Route = require('react-router').Route
 var { Route, Router, IndexRoute, hashHistory } = require('react-router');
 
@@ -30,6 +36,8 @@ require('style!css!sass!applicationStyles')
 // What to render by react-dom
 // document.getElementById('app') is the location to render the component
 ReactDOM.render(
-  <TodoApp/>,
+  <Provider store={store}>
+    <TodoApp/>
+  </Provider>,
   document.getElementById('app') // Where to render
 );

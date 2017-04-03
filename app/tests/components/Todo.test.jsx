@@ -4,14 +4,19 @@ var TestUtils = require('react-addons-test-utils');
 var expect = require('expect');
 var $ = require('jQuery');
 
-var Todo = require('Todo');
+// WHEN REDUX IS USED
+// var Todo = require('Todo');
+// var {Todo} = require('Todo');
+import {Todo} from 'Todo';
 
 describe('Todo', () => {
   it('should exist', () => {
       expect(Todo).toExist();
   });
 
-  it('should call onToggle prop with id on click', () => {
+  // WHEN REDUX IS USED
+  // it('should call onToggle prop with id on click', () => {
+  it('should dispatch TOGGLE_TODO action on click', () => {
     var todoData = {
       id: 199,
       text: 'Write todo.test.jsx test',
@@ -19,7 +24,10 @@ describe('Todo', () => {
     };
 
     var spy = expect.createSpy();
-    var todo = TestUtils.renderIntoDocument(<Todo {...todoData} onToggle={spy} />);
+
+    // WHEN REDUX IS USED
+    // var todo = TestUtils.renderIntoDocument(<Todo {...todoData} onToggle={spy} />);
+    var todo = TestUtils.renderIntoDocument(<Todo {...todoData} dispatch={spy} />);
 
     var $el = $(ReactDOM.findDOMNode(todo));
 
@@ -27,6 +35,11 @@ describe('Todo', () => {
     // but for 'div' or other tagName, just put root element directly e.g. '$el[0]'
     TestUtils.Simulate.click($el[0]);
 
-    expect(spy).toHaveBeenCalledWith(todoData.id);
+    // WHEN REDUX IS USED
+    // expect(spy).toHaveBeenCalledWith(todoData.id);
+    expect(spy).toHaveBeenCalledWith({
+      type: 'TOGGLE_TODO',
+      id: todoData.id
+    });
   });
 });

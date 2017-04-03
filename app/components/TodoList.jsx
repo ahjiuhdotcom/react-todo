@@ -1,7 +1,10 @@
 var React = require('react');
-var Todo = require('Todo');
+// var Todo = require('Todo');
+import Todo from 'Todo';
+// To connect to the store thru provider
+var {connect} = require('react-redux');
 
-var TodoList = React.createClass({
+export var TodoList = React.createClass({
   render: function() {
 
     var {todos} = this.props;
@@ -19,7 +22,8 @@ var TodoList = React.createClass({
         // In this case it spread out the todo object into individual props
         // so that all attributes in todo is passed down tp child
         return (
-          <Todo key={todo.id} {...todo} onToggle={this.props.onToggle}/>
+          // <Todo key={todo.id} {...todo} onToggle={this.props.onToggle}/>
+          <Todo key={todo.id} {...todo} />
         );
       });
     };
@@ -32,4 +36,26 @@ var TodoList = React.createClass({
   }
 });
 
-module.exports = TodoList;
+// WHEN REDUX IS USED
+// module.exports = TodoList;
+// connect to state thru store to get the 'todos' array
+// and make a props call 'todos', equal state.todos in it
+// we could return the entire state, but best grab only those we need
+// 'state' is the only argument to passed in to the function
+// and will be called by redux thru connect
+// module.exports = connect(
+//   (state) => {
+//     return {
+//       todos: state.todos
+//     };
+//   }
+// )(TodoList);
+
+// refer to Todo.jsx why export default is used
+export default connect(
+  (state) => {
+    return {
+      todos: state.todos
+    };
+  }
+)(TodoList);
