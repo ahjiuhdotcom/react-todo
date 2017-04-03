@@ -48,6 +48,14 @@ export var todosReducers = (state = '', action) => {
         }
       });
 
+    case 'ADD_TODOS':
+      // '...action.todos' maybe none or maybe many.
+      // that's why spread operator required
+      return [
+        ...state,
+        ...action.todos
+      ];
+
     default:
       return state;
   }
