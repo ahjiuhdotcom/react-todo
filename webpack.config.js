@@ -48,6 +48,7 @@ module.exports = {
     // specify where to find those file
     // so that not explicitly specify the path in 'require' statement
     alias: {
+      app: 'app', // specifying this actuall can cover all aliases and modulesDirectories
       applicationStyles: 'app/styles/app.scss',
       actions: 'app/actions/actions.jsx',
       reducers: 'app/reducers/reducers.jsx',
@@ -70,7 +71,7 @@ module.exports = {
         // specify which file to apply this loader
         test: /\.jsx?$/, //regular expression, means .jsx file
         // specify which file to be excluded
-        exlude: /(node_modules|bower_components)/
+        exclude: /(node_modules|bower_components)/
       }
     ]
   },

@@ -1,8 +1,11 @@
-// import expect from 'expect';
-// import actions from 'actions';
+// mock-store is a fake store used for testing puprose
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 
 var expect = require('expect');
 var actions = require('actions');
+
+var createMockStore = configureMockStore([thunk]);
 
 describe('Actions', () => {
   it('should generate search text action', () => {
@@ -32,12 +35,44 @@ describe('Actions', () => {
 
     var action = {
       type: 'ADD_TODO',
-      text: 'Thing to do'
+      todo: {
+        id: '123abc',
+        text: 'Anything we like',
+        completed: false,
+        createdAt: 0
+      }
     };
 
-    var res = actions.addTodo(action.text);
+    var res = actions.addTodo(action.todo);
 
     expect(res).toEqual(action);
+  });
+
+  // putting argument 'done' let mocha know that we have async test
+  it('should create todo and dispatch ADD_TODO', (done) => {
+    const store = createMockStore({});
+    const todoText = 'My todo item';
+
+    // call catch(done) will simply stop the test if something goes wrong and with error object
+    // if use other argument, it will assume test fail and print error message to the screen
+    store.dispatch(actions.startAddTodo(todoText)).then(() => {
+      // based on flow of 'startAddTodo' in actions.jsx
+      // we expect 'addTodos' action is successfully dispatch here
+
+      // 'getActions' return an array of all the action
+      // that is fired in the mock store
+      // In this case, only 'addTodo' is dispatch after successfully push to firebaseRef
+      const actions = store.getActions();
+
+      expect(actions[0]).toInclude({
+        type: 'ADD_TODO'
+      });
+      expect(actions[0].todo).toInclude({
+        text: todoText
+      });
+      done();
+
+    }).catch(done);
   });
 
   it('should generate add todos action object', () => {
