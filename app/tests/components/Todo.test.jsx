@@ -4,6 +4,8 @@ var TestUtils = require('react-addons-test-utils');
 var expect = require('expect');
 var $ = require('jQuery');
 
+import * as actions from 'actions';
+
 // WHEN REDUX IS USED
 // var Todo = require('Todo');
 // var {Todo} = require('Todo');
@@ -23,6 +25,8 @@ describe('Todo', () => {
       completed: true
     };
 
+    var action = actions.startToggleTodo(todoData.id, !todoData.completed);
+
     var spy = expect.createSpy();
 
     // WHEN REDUX IS USED
@@ -37,9 +41,6 @@ describe('Todo', () => {
 
     // WHEN REDUX IS USED
     // expect(spy).toHaveBeenCalledWith(todoData.id);
-    expect(spy).toHaveBeenCalledWith({
-      type: 'TOGGLE_TODO',
-      id: todoData.id
-    });
+    expect(spy).toHaveBeenCalledWith(action);
   });
 });
