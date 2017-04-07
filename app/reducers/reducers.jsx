@@ -53,6 +53,7 @@ export var todosReducers = (state = '', action) => {
       });
 
     case 'ADD_TODOS':
+      console.log('action.todos', action.todos);
       // '...action.todos' maybe none or maybe many.
       // that's why spread operator required
       return [

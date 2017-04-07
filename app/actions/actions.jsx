@@ -46,9 +46,36 @@ export var startAddTodo = (text) => {
 }
 
 export var addTodos = (todos) => {
+  console.log('todos', todos);
   return {
     type: 'ADD_TODOS',
     todos
+  };
+};
+
+export var startAddTodos = () => {
+  return (dispatch, getState) => {
+    var todoRef = firebaseRef.child('todos');
+
+    return todoRef.once('value').then((snapshot) => {
+      var todos = snapshot.val() || {};
+      var parseTodos = [];
+
+      // todos is an object, but we need array of an object
+      // when we dispatch 'addTodos'
+      // Object.keys will produce a array of object key
+      // from an object
+      Object.keys(todos).forEach((todoId) => {
+        // ...todos[todoId] means add everything from todos[todoId]
+        // to this object
+        parseTodos.push({
+          id: todoId,
+          ...todos[todoId]
+        });
+      });
+      console.log('parseTodos', parseTodos);
+      dispatch(addTodos(parseTodos));
+    });
   };
 };
 

@@ -115,19 +115,26 @@ describe('Actions', () => {
 
     // function in mocha which will run before any single test
     beforeEach((done) => {
-      // push() to create a post in the node
-      // and simultaneously retrieve iinformation/ref from there
-      testTodoRef = firebaseRef.child('todos').push();
-      testTodoRef.set({
-        text: 'Something to do',
-        completed: false,
-        createdAt: 23453453
-      }).then(() => done());
+
+      var todosRef = firebaseRef.child('todos');
+
+      todosRef.remove().then(() => {
+        // push() to create a post in the node
+        // and simultaneously retrieve iinformation/ref from there
+        testTodoRef = firebaseRef.child('todos').push();
+
+        return testTodoRef.set({
+          text: 'Something to do',
+          completed: false,
+          createdAt: 23453453
+        })
+      })
+        .then(() => done())
+        .catch(done);
     });
 
     // function in mocha which will run after every single test
     afterEach(() => {
-      console.log('testTodoRef', testTodoRef);
       testTodoRef.remove().then(() => done());
     });
 
@@ -154,6 +161,21 @@ describe('Actions', () => {
 
         done();
       }, done);
+    });
+
+    it('should populate todos and dispatch ADD_TODOS', (done) => {
+      const store = createMockStore({});
+      const action = actions.startAddTodos();
+
+      store.dispatch(action).then(() => {
+        const mockActions = store.getActions();
+
+        expect(mockActions[0].type).toEqual('ADD_TODOS');
+        expect(mockActions[0].todos.length).toEqual(1);
+        expect(mockActions[0].todos[0].text).toEqual('Something to do');
+
+        done();
+      }, done)
     });
   });
 });
