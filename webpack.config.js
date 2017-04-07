@@ -3,6 +3,8 @@
 var webpack = require('webpack');
 var path = require('path'); // come with node core module, no need to install it
 
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
 module.exports = {
   // import
   // script file not neccessary package for webpack
@@ -19,14 +21,21 @@ module.exports = {
   externals: {
     jquery: 'jQuery'
   },
-  // define the global variables name
-  // key is the variable name to watch for
-  // value is the module to replace it with
-  // e.g. whenever see '$', it refer to 'jquery'
   plugins: [
+    // define the global variables name
+    // key is the variable name to watch for
+    // value is the module to replace it with
+    // e.g. whenever see '$', it refer to 'jquery'
     new webpack.ProvidePlugin({
       '$': 'jquery',
       'jQuery': 'jquery'
+    }),
+    // to remove warning when we run
+    // 'NODE_ENV=production webpack -p'
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        warnings: false
+      }
     })
   ],
   // export
@@ -84,9 +93,37 @@ module.exports = {
     ]
   },
   // Showing original source code in debugger
-  devtool: 'eval-source-map'
+  // 'eval-source-map' take up a lot of space in bundle.js
+  // and it is not required during prouction
+  // devtool: 'eval-source-map'
+  devtool: process.env.NODE_ENV === 'production' ? undefined : 'eval-source-map'
 };
 
 // At terminal, run 'webpack'
 // At terminal, run 'webpack -w' will listen to the changes continuously
 // and restart webpack automatically
+
+// we can simulate the production mode by
+// putting 'NODE_ENV=production' in front of 'webpack' in command like
+// e.g. 'NODE_ENV=production webpack'
+// putting '-p' flag will hv furthur optimization
+// e.g. 'NODE_ENV=production webpack -p'
+
+// READY FOR PRODUCTION
+// changes here is to push the entire project file (except those in .gitignore)
+// and the server will build the project it self and run
+// not like stephen grider method: build first then push to server
+// package.json file:
+// tell webpack if running/executing 'test',
+// it is running in 'test' NODE_ENV environment
+// same concept as simulating production by 'NODE_ENV=production webpack -p'
+// 'build' responsible for running webpack
+// "npm run build && node server.js" means
+// run the 'build' command, then 'node server'
+// "scripts": {
+//   "test": "NODE_ENV=test karma start",
+//   "build": "webpack",
+//   "start": "npm run build && node server.js"
+// },
+
+// remember to move all devDependencies to dependencies except 'karma' & 'mocha'
