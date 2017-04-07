@@ -1,5 +1,5 @@
 var React = require('react');
-var uuid = require('uuid');
+var uuid = require('node-uuid');
 var moment = require('moment');
 
 // var TodoList = require('TodoList');

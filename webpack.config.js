@@ -112,6 +112,7 @@ module.exports = {
 // READY FOR PRODUCTION
 // changes here is to push the entire project file (except those in .gitignore)
 // and the server will build the project it self and run
+// we no longer manage bundle.js file in our local machine
 // not like stephen grider method: build first then push to server
 // package.json file:
 // tell webpack if running/executing 'test',
@@ -119,7 +120,7 @@ module.exports = {
 // same concept as simulating production by 'NODE_ENV=production webpack -p'
 // 'build' responsible for running webpack
 // "npm run build && node server.js" means
-// run the 'build' command, then 'node server'
+// run the 'build' command, then 'node servser'
 // "scripts": {
 //   "test": "NODE_ENV=test karma start",
 //   "build": "webpack",
@@ -127,3 +128,6 @@ module.exports = {
 // },
 
 // remember to move all devDependencies to dependencies except 'karma' & 'mocha'
+// remember to copy domain name 'react-todo-sia.herokuapp.com' to firebase
+// to set up the connection
+// firebase console > authentication > sign-in method > OAuth redirect domains > add domain
