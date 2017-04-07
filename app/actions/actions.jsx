@@ -46,7 +46,7 @@ export var startAddTodo = (text) => {
 }
 
 export var addTodos = (todos) => {
-  console.log('todos', todos);
+
   return {
     type: 'ADD_TODOS',
     todos
@@ -73,7 +73,7 @@ export var startAddTodos = () => {
           ...todos[todoId]
         });
       });
-      console.log('parseTodos', parseTodos);
+
       dispatch(addTodos(parseTodos));
     });
   };

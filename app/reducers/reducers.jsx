@@ -19,7 +19,7 @@ export var showCompletedReducer = (state = false, action) => {
   }
 };
 
-export var todosReducers = (state = '', action) => {
+export var todosReducers = (state = [], action) => {
   switch (action.type) {
     case 'ADD_TODO':
       return [
@@ -53,7 +53,7 @@ export var todosReducers = (state = '', action) => {
       });
 
     case 'ADD_TODOS':
-      console.log('action.todos', action.todos);
+
       // '...action.todos' maybe none or maybe many.
       // that's why spread operator required
       return [

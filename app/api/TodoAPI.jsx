@@ -42,10 +42,8 @@ module.exports = {
   //   return $.isArray(todos) ? todos : [];
   // },
   filterTodos: function(todos, showCompleted, searchText) {
-    console.log('1');
+
     var filteredTodos = todos;
-    console.log('2');
-    console.log('filteredTodos', filteredTodos);
 
     // filter by showCompleted
     // '.filter' is built in array method
@@ -54,7 +52,7 @@ module.exports = {
       // or the 'showCompleted' is true (checked)
       return !todo.completed || showCompleted;
     });
-    console.log('3');
+
     // filter by searchText
     filteredTodos = filteredTodos.filter((todo) => {
       var text = todo.text.toLowerCase();
@@ -62,7 +60,7 @@ module.exports = {
       // if '.indexOf' return -1 means the text is not found
       return searchText.length == 0 || text.indexOf(searchText) > -1;
     });
-    console.log('4');
+
     // Sort todos with non-completed first
     // '.sort' is built in array method, pass in 2 argument, e.g. a, b
     // if return '-1', 'a' should be before 'b'

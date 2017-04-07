@@ -12,18 +12,15 @@ export var TodoList = React.createClass({
     var {todos, showCompleted, searchText} = this.props;
 
     var renderTodos = () => {
-      console.log('todos props', todos);
-      console.log('typeof', typeof(todos));
-      // console.log('start');
+
       var filteredTodos = TodoAPI.filterTodos(todos, showCompleted, searchText);
-      // console.log(filteredTodos);
+
       if (filteredTodos.length === 0) {
         return (
           <p className="container__message">Nothing To Do</p>
         );
       }
-
-      // return todos.map((todo) => {
+      
       return filteredTodos.map((todo) => {
         // {...todo} is using spread operator
         // it spread out all the property in the object
