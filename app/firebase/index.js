@@ -1,13 +1,17 @@
 import firebase from 'firebase';
 
+// For security purpose, we better put the config file in seperate file
+// e.g. config/test.env and config/development.env
+// these is custom environment variables
+// we create two more config because we want to work with different database
+// according to our environment, e.g. test env, dev env or production env
 try {
   var config = {
-      apiKey: "AIzaSyDz2k1yUiu72asZGXWS7GLnT4azKI6YH08",
-      authDomain: "sia-todo-app.firebaseapp.com",
-      databaseURL: "https://sia-todo-app.firebaseio.com",
-      projectId: "sia-todo-app",
-      storageBucket: "sia-todo-app.appspot.com",
-      messagingSenderId: "274527988029"
+      apiKey: process.env.API_KEY,
+      authDomain: process.env.AUTH_DOMAIN,
+      databaseURL: process.env.DATABASE_URL,
+      projectId: process.env.PROJECT_ID,
+      storageBucket: process.env.STORAGE_BUCKET
     };
 
   firebase.initializeApp(config);

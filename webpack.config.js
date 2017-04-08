@@ -1,9 +1,24 @@
 // Naming 'webpack.config.js' is important
 
 var webpack = require('webpack');
-var path = require('path'); // come with node core module, no need to install it
+// come with node core module, no need to install it
+var path = require('path');
+// used to load in custom env file e.g. config/test.env and config/development.env
+var envFile = require('node-env-file');
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
+// we use try-catch to throw the error if the file doesn't exist
+// which is exactly happen in production because the 'config' directory
+// is not exist in production
+// we doesn't really care of the error in production, we can just ignore
+// after we create the env file, we still need those variables inside our bundle file
+// using the plugin below
+try {
+  envFile(path.join(__dirname, 'config/' + process.env.NODE_ENV + '.env'));
+} catch(e) {
+
+}
 
 module.exports = {
   // import
@@ -35,6 +50,24 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
         warnings: false
+      }
+    }),
+    // to define variable in bundle
+    new webpack.DefinePlugin({
+      'process.env': {
+        // SUPER CONFUSING HERE
+        // why use JSON.stringify()
+        // const a = 1
+        // if we just put b: 'a', webapck will run it as b = 1, not b = 'a'
+        // we don't want: b = a, or b = 1
+        // we want: b = "a" (string 'a') not b = 1
+        // that's why we want stringify it
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+        API_KEY: JSON.stringify(process.env.API_KEY),
+        AUTH_DOMAIN: JSON.stringify(process.env.AUTH_DOMAIN),
+        DATABASE_URL: JSON.stringify(process.env.DATABASE_URL),
+        PROJECT_ID: JSON.stringify(process.env.PROJECT_ID),
+        STORAGE_BUCKET: JSON.stringify(process.env.STORAGE_BUCKET)
       }
     })
   ],

@@ -15,6 +15,7 @@ var actions = require('actions');
 var store = require('configureStore').configure();
 var TodoAPI = require('TodoAPI');
 
+console.log('process.env.NODE_ENV', process.env.NODE_ENV);
 // import './../playground/firebase/index';
 
 // WHEN FIREBASE IS USED
