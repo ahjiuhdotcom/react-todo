@@ -20,6 +20,8 @@ try {
 
 }
 
+// refer notes below on how to set env var in heroku
+
 module.exports = {
   // import
   // script file not neccessary package for webpack
@@ -164,3 +166,9 @@ module.exports = {
 // remember to copy domain name 'react-todo-sia.herokuapp.com' to firebase
 // to set up the connection
 // firebase console > authentication > sign-in method > OAuth redirect domains > add domain
+
+// Set env var in herokuapp
+// command to set: heroku config:set key=value
+// commnad to remove: heroku config:unset key=value
+// command to view: heroku config
+// e.g.: heroku config:set API_KEY=ABCDEFGH

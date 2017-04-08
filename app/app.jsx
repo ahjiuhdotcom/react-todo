@@ -9,13 +9,15 @@ var {Provider} = require('react-redux');
 // var Route = require('react-router').Route
 var { Route, Router, IndexRoute, hashHistory } = require('react-router');
 
-var TodoApp = require('TodoApp');
+// var TodoApp = require('TodoApp');
+import TodoApp from 'TodoApp';
 
 var actions = require('actions');
 var store = require('configureStore').configure();
 var TodoAPI = require('TodoAPI');
+import Login from 'Login';
 
-console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+
 // import './../playground/firebase/index';
 
 // WHEN FIREBASE IS USED
@@ -48,9 +50,19 @@ require('style!css!sass!applicationStyles')
 
 // What to render by react-dom
 // document.getElementById('app') is the location to render the component
+// hashHistory is store on the client,
+// we don't want todo anything with the server with our router
 ReactDOM.render(
   <Provider store={store}>
-    <TodoApp/>
+    {/*
+      <TodoApp />
+      */}
+    <Router history={hashHistory}>
+      <Route path="/">
+        <Route path="todos" component={TodoApp} />
+        <IndexRoute component={Login} />
+      </Route>
+    </Router>
   </Provider>,
   document.getElementById('app') // Where to render
 );

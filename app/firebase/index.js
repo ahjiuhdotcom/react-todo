@@ -20,6 +20,8 @@ try {
 
 }
 
+export var githubProvider = new firebase.auth.GithubAuthProvider();
+
 export var firebaseRef = firebase.database().ref();
 
 // the reason to export default firebase (root firebase library) is that
